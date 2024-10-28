@@ -16,9 +16,8 @@ const MonthForScroll = ({ name, index }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-    borderColor: "#6379ff",
-    borderWidth: 1,
     width: monthForScrollWidth,
+    height: 120,
   },
   indicator: {
     fontSize: 28,
@@ -27,9 +26,11 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   text: {
-    fontSize: 24,
+    fontSize: 28,
     color: "#FFFFFF",
     fontWeight: "bold",
+    textAlign: "center",
+    fontFamily: "Nunito_800ExtraBold",
   },
 });
 

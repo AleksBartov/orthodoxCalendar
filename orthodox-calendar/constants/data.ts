@@ -1,7 +1,8 @@
 import { Dimensions } from "react-native";
 
 export const actualMonth = 10;
-export const monthForScrollWidth = Dimensions.get("window").width * 0.4;
+export const actualDay = 4;
+export const monthForScrollWidth = Dimensions.get("window").width * 0.45;
 
 export const daysAndMonthsAndYears = [
   {
@@ -14,6 +15,15 @@ export const daysAndMonthsAndYears = [
           { dayName: "пн", dayNum: 1 },
           { dayName: "вт", dayNum: 2 },
           { dayName: "ср", dayNum: 3 },
+          { dayName: "чт", dayNum: 4 },
+          { dayName: "пт", dayNum: 5 },
+          { dayName: "сб", dayNum: 6 },
+          { dayName: "вс", dayNum: 7 },
+          { dayName: "пн", dayNum: 8 },
+          { dayName: "вт", dayNum: 9 },
+          { dayName: "ср", dayNum: 10 },
+          { dayName: "чт", dayNum: 11 },
+          { dayName: "пт", dayNum: 12 },
         ],
       },
       {
