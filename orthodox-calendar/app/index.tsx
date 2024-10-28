@@ -1,3 +1,5 @@
+import MonthForScroll from "@/components/MonthForScroll";
+import { daysAndMonthsAndYears, monthForScrollWidth } from "@/constants/data";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -13,6 +15,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#364775",
+    gap: 10,
   },
   header: {
     flexDirection: "row",
@@ -42,6 +45,10 @@ const styles = StyleSheet.create({
   },
 });
 
+const months = daysAndMonthsAndYears[0].months.map((data, index) => {
+  return data.name;
+});
+
 export default function Index() {
   return (
     <>
@@ -52,47 +59,23 @@ export default function Index() {
             <FontAwesome6 name="grip-lines" size={24} color="#ffffff" />
           </TouchableOpacity>
           <Text style={styles.text}>2024</Text>
+          <View style={{ width: 200 }}></View>
           <TouchableOpacity>
             <FontAwesome6 name="add" size={24} color="#ffffff" />
           </TouchableOpacity>
         </View>
-        <ScrollView horizontal contentContainerStyle={{ height: 100 }}>
-          <View>
-            <Text style={styles.month}>Январь</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Февраль</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Март</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Апрель</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Май</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Июнь</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Июль</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Август</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Сентябрь</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Октябрь</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Ноябрь</Text>
-          </View>
-          <View>
-            <Text style={styles.month}>Декабрь</Text>
-          </View>
+        <ScrollView
+          snapToInterval={monthForScrollWidth}
+          decelerationRate={"fast"}
+          disableIntervalMomentum
+          showsHorizontalScrollIndicator={false}
+          scrollEventThrottle={16}
+          horizontal
+          contentContainerStyle={{ height: 100, alignItems: "center" }}
+        >
+          {months.map((m, i) => {
+            return <MonthForScroll key={i} name={m} index={i} />;
+          })}
         </ScrollView>
         <ScrollView style={styles.daysScroll}></ScrollView>
         <Text style={styles.title}>october</Text>
