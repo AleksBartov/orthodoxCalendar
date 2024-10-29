@@ -4,6 +4,7 @@ import FullMonth from "@/components/FullMonth";
 import MonthForScroll from "@/components/MonthForScroll";
 import { myWhite } from "@/constants/Colors";
 import { daysAndMonthsAndYears, monthForScrollWidth } from "@/constants/data";
+import { monthBoxHeight } from "@/constants/SIZES";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { StatusBar } from "expo-status-bar";
@@ -79,8 +80,49 @@ export default function Index() {
             <FontAwesome6 name="add" size={24} color={myWhite} />
           </TouchableOpacity>
         </View>
-        <ScrollView contentContainerStyle={{ alignItems: "center", gap: 80 }}>
-          <FullMonth title="Январь" />
+        <ScrollView contentContainerStyle={{ alignItems: "center", gap: 40 }}>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
+          <View style={{ minHeight: monthBoxHeight }}>
+            <FullMonth title="Январь" />
+          </View>
         </ScrollView>
       </SafeAreaView>
     </>

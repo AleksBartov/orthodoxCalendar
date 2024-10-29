@@ -2,55 +2,14 @@ import { Dimensions, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { monthBoxHeight } from "@/constants/SIZES";
 import { myWhite } from "@/constants/Colors";
+import { daysPositionJan } from "@/constants/data";
+import Animated from "react-native-reanimated";
+import DayBox from "./DayBox";
 
 const { width } = Dimensions.get("window");
 
 const monthBoxWidth = monthBoxHeight * 1.618;
 const dayBoxWidth = monthBoxWidth / 9;
-
-const daysPositionJan = [
-  [
-    { name: "пн", num: 1 },
-    { name: "вт", num: 2 },
-    { name: "ср", num: 3 },
-    { name: "чт", num: 4 },
-    { name: "пт", num: 5 },
-    { name: "сб", num: 6 },
-    { name: "вс", num: 7 },
-  ],
-  [
-    { name: "пн", num: 8 },
-    { name: "вт", num: 9 },
-    { name: "ср", num: 10 },
-    { name: "чт", num: 11 },
-    { name: "пт", num: 12 },
-    { name: "сб", num: 13 },
-    { name: "вс", num: 14 },
-  ],
-  [
-    { name: "пн", num: 15 },
-    { name: "вт", num: 16 },
-    { name: "ср", num: 17 },
-    { name: "чт", num: 18 },
-    { name: "пт", num: 19 },
-    { name: "сб", num: 20 },
-    { name: "вс", num: 21 },
-  ],
-  [
-    { name: "пн", num: 22 },
-    { name: "вт", num: 23 },
-    { name: "ср", num: 24 },
-    { name: "чт", num: 25 },
-    { name: "пт", num: 26 },
-    { name: "сб", num: 27 },
-    { name: "вс", num: 28 },
-  ],
-  [
-    { name: "пн", num: 29 },
-    { name: "вт", num: 30 },
-    { name: "ср", num: 31 },
-  ],
-];
 
 const FullMonth = ({ title }) => {
   return (
@@ -61,24 +20,7 @@ const FullMonth = ({ title }) => {
           return (
             <View style={styles.row} key={i}>
               {w.map((d, j) => {
-                return (
-                  <View
-                    style={[
-                      styles.dayBox,
-                      {
-                        transform: [
-                          {
-                            translateX: j * dayBoxWidth,
-                          },
-                          { translateY: i * dayBoxWidth },
-                        ],
-                      },
-                    ]}
-                    key={j}
-                  >
-                    <Text style={styles.dayNum}>{d.num}</Text>
-                  </View>
-                );
+                return <DayBox key={`${i}+${j}+${d.name}`} i={i} j={j} d={d} />;
               })}
             </View>
           );

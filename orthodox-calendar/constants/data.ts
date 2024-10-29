@@ -4,8 +4,49 @@ export const actualMonth = 10;
 export const actualDay = 4;
 export const monthForScrollWidth = Dimensions.get("window").width * 0.45;
 
-export const january2024 = `1,2,3,4,5,6,7
-                            8,9,10,11,12,13,14`;
+export const daysPositionJan = [
+  [
+    { name: "пн", num: 1 },
+    { name: "вт", num: 2 },
+    { name: "ср", num: 3 },
+    { name: "чт", num: 4 },
+    { name: "пт", num: 5 },
+    { name: "сб", num: 6 },
+    { name: "вс", num: 7 },
+  ],
+  [
+    { name: "пн", num: 8 },
+    { name: "вт", num: 9 },
+    { name: "ср", num: 10 },
+    { name: "чт", num: 11 },
+    { name: "пт", num: 12 },
+    { name: "сб", num: 13 },
+    { name: "вс", num: 14 },
+  ],
+  [
+    { name: "пн", num: 15 },
+    { name: "вт", num: 16 },
+    { name: "ср", num: 17 },
+    { name: "чт", num: 18 },
+    { name: "пт", num: 19 },
+    { name: "сб", num: 20 },
+    { name: "вс", num: 21 },
+  ],
+  [
+    { name: "пн", num: 22 },
+    { name: "вт", num: 23 },
+    { name: "ср", num: 24 },
+    { name: "чт", num: 25 },
+    { name: "пт", num: 26 },
+    { name: "сб", num: 27 },
+    { name: "вс", num: 28 },
+  ],
+  [
+    { name: "пн", num: 29 },
+    { name: "вт", num: 30 },
+    { name: "ср", num: 31 },
+  ],
+];
 
 export const daysAndMonthsAndYears = [
   {
