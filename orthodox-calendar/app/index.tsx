@@ -1,5 +1,6 @@
 import ActiveDayModal from "@/components/ActiveDayModal";
 import DayForScroll from "@/components/DayForScroll";
+import FullMonth from "@/components/FullMonth";
 import MonthForScroll from "@/components/MonthForScroll";
 import { daysAndMonthsAndYears, monthForScrollWidth } from "@/constants/data";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
@@ -21,6 +22,7 @@ const { height } = Dimensions.get("window");
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#364775",
+    flex: 1,
   },
   header: {
     flexDirection: "row",
@@ -76,7 +78,19 @@ export default function Index() {
             <FontAwesome6 name="add" size={24} color="#ffffff" />
           </TouchableOpacity>
         </View>
-        <ScrollView
+        <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+          <FullMonth title="Январь" />
+          <FullMonth title="Февраль" />
+          <FullMonth title="Март" />
+          <FullMonth title="Апрель" />
+        </ScrollView>
+      </SafeAreaView>
+    </>
+  );
+}
+
+/*
+<ScrollView
           snapToInterval={monthForScrollWidth}
           decelerationRate={"fast"}
           disableIntervalMomentum
@@ -114,7 +128,4 @@ export default function Index() {
             );
           })}
         </ScrollView>
-      </SafeAreaView>
-    </>
-  );
-}
+*/
