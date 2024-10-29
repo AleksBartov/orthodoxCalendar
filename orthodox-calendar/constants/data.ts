@@ -4,6 +4,9 @@ export const actualMonth = 10;
 export const actualDay = 4;
 export const monthForScrollWidth = Dimensions.get("window").width * 0.45;
 
+export const january2024 = `1,2,3,4,5,6,7
+                            8,9,10,11,12,13,14`;
+
 export const daysAndMonthsAndYears = [
   {
     year: 2024,

@@ -2,6 +2,7 @@ import ActiveDayModal from "@/components/ActiveDayModal";
 import DayForScroll from "@/components/DayForScroll";
 import FullMonth from "@/components/FullMonth";
 import MonthForScroll from "@/components/MonthForScroll";
+import { myWhite } from "@/constants/Colors";
 import { daysAndMonthsAndYears, monthForScrollWidth } from "@/constants/data";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
@@ -34,7 +35,7 @@ const styles = StyleSheet.create({
   },
   month: {
     fontSize: 24,
-    color: "#FFFFFF",
+    color: myWhite,
   },
   daysScroll: {},
   title: {
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    color: "#FFFFFF",
+    color: myWhite,
     fontFamily: "Nunito_500Medium",
   },
 });
@@ -70,19 +71,16 @@ export default function Index() {
         <ActiveDayModal ref={activeDayModalRef} />
         <View style={styles.header}>
           <TouchableOpacity>
-            <FontAwesome6 name="grip-lines" size={24} color="#ffffff" />
+            <FontAwesome6 name="grip-lines" size={24} color={myWhite} />
           </TouchableOpacity>
           <Text style={styles.text}>2024</Text>
           <View style={{ width: 100 }}></View>
           <TouchableOpacity onPress={handlePresentActiveDayModalPress}>
-            <FontAwesome6 name="add" size={24} color="#ffffff" />
+            <FontAwesome6 name="add" size={24} color={myWhite} />
           </TouchableOpacity>
         </View>
-        <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+        <ScrollView contentContainerStyle={{ alignItems: "center", gap: 80 }}>
           <FullMonth title="Январь" />
-          <FullMonth title="Февраль" />
-          <FullMonth title="Март" />
-          <FullMonth title="Апрель" />
         </ScrollView>
       </SafeAreaView>
     </>
