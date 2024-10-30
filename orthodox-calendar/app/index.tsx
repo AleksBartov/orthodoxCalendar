@@ -6,17 +6,9 @@ import {
   MONTH_HEIGHT,
 } from "@/constants/SIZES";
 import { StatusBar } from "expo-status-bar";
-import {
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, {
   useAnimatedRef,
-  useDerivedValue,
   useScrollViewOffset,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";

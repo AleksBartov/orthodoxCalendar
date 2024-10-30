@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import React from "react";
 import { BORDER_RADIUS, MONTH_HEIGHT, MONTH_WIDTH } from "@/constants/SIZES";
-import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import Animated, { FadeIn, useAnimatedStyle } from "react-native-reanimated";
 import Day from "./Day";
 
 const DAYS_ARRAY = new Array(31).fill(null).map((_, i) => {
@@ -20,7 +20,10 @@ const Month = ({ index: monthIndex, scrollOffset }) => {
   }, []);
 
   return (
-    <Animated.View style={[styles.monthBox, rStyles]}>
+    <Animated.View
+      entering={FadeIn.delay(monthIndex * 100)}
+      style={[styles.monthBox, rStyles]}
+    >
       {DAYS_ARRAY.map((d, i) => {
         return (
           <Day

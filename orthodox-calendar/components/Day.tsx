@@ -1,7 +1,6 @@
-import { Easing, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text } from "react-native";
 import React from "react";
 import Animated, {
-  FadeIn,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -20,7 +19,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: myWhite,
-    fontSize: 33,
+    fontSize: 26,
     fontFamily: "Nunito_800ExtraBold",
   },
 });
@@ -45,9 +44,7 @@ const Day = ({ index, day, scrollOffset, monthIndex }) => {
     return {
       transform: [
         {
-          translateX: pressed.value
-            ? withTiming(DAY_WIDTH * 2)
-            : getPosition(index).x,
+          translateX: pressed.value ? withTiming(0) : getPosition(index).x,
         },
         {
           translateY: pressed.value
@@ -62,10 +59,7 @@ const Day = ({ index, day, scrollOffset, monthIndex }) => {
   }, []);
   return (
     <GestureDetector gesture={tap}>
-      <Animated.View
-        entering={FadeIn.delay(index * Math.floor(Math.random() * 50))}
-        style={[styles.day, rStyles]}
-      >
+      <Animated.View style={[styles.day, rStyles]}>
         <Text style={styles.text}>{day}</Text>
       </Animated.View>
     </GestureDetector>
