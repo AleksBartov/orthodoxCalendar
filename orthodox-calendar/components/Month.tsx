@@ -8,12 +8,12 @@ const DAYS_ARRAY = new Array(31).fill(null).map((_, i) => {
   return i + 1;
 });
 
-const Month = ({ index, scrollOffset }) => {
+const Month = ({ index: monthIndex, scrollOffset }) => {
   const rStyles = useAnimatedStyle(() => {
     return {
       transform: [
         {
-          translateY: index * MONTH_HEIGHT,
+          translateY: monthIndex * MONTH_HEIGHT,
         },
       ],
     };
@@ -22,7 +22,15 @@ const Month = ({ index, scrollOffset }) => {
   return (
     <Animated.View style={[styles.monthBox, rStyles]}>
       {DAYS_ARRAY.map((d, i) => {
-        return <Day key={i} index={i} day={d} scrollOffset={scrollOffset} />;
+        return (
+          <Day
+            key={i}
+            index={i}
+            monthIndex={monthIndex}
+            day={d}
+            scrollOffset={scrollOffset}
+          />
+        );
       })}
     </Animated.View>
   );

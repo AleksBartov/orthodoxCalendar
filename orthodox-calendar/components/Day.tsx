@@ -20,12 +20,12 @@ const styles = StyleSheet.create({
   },
   text: {
     color: myWhite,
-    fontSize: 15,
+    fontSize: 33,
     fontFamily: "Nunito_800ExtraBold",
   },
 });
 
-const Day = ({ index, day, scrollOffset }) => {
+const Day = ({ index, day, scrollOffset, monthIndex }) => {
   const pressed = useSharedValue(false);
 
   const tap = Gesture.Tap().onEnd(() => {
@@ -46,13 +46,16 @@ const Day = ({ index, day, scrollOffset }) => {
       transform: [
         {
           translateX: pressed.value
-            ? withTiming(0 + scrollOffset.value)
+            ? withTiming(DAY_WIDTH * 2)
             : getPosition(index).x,
         },
         {
           translateY: pressed.value
-            ? withTiming(0 + scrollOffset.value)
+            ? withTiming(-(monthIndex * MONTH_HEIGHT) + scrollOffset.value)
             : getPosition(index).y,
+        },
+        {
+          scale: pressed.value ? withTiming(1.2) : 0.6,
         },
       ],
     };
@@ -60,7 +63,7 @@ const Day = ({ index, day, scrollOffset }) => {
   return (
     <GestureDetector gesture={tap}>
       <Animated.View
-        entering={FadeIn.delay(index * Math.floor(Math.random() * 100))}
+        entering={FadeIn.delay(index * Math.floor(Math.random() * 50))}
         style={[styles.day, rStyles]}
       >
         <Text style={styles.text}>{day}</Text>
