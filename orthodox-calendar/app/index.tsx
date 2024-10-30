@@ -1,14 +1,11 @@
-import ActiveDayModal from "@/components/ActiveDayModal";
-import DayForScroll from "@/components/DayForScroll";
-import FullMonth from "@/components/FullMonth";
-import MonthForScroll from "@/components/MonthForScroll";
-import { myWhite } from "@/constants/Colors";
-import { daysAndMonthsAndYears, monthForScrollWidth } from "@/constants/data";
-import { monthBoxHeight } from "@/constants/SIZES";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import Month from "@/components/Month";
+import {
+  BORDER_RADIUS,
+  GAP,
+  HEADER_HEIGHT,
+  MONTH_HEIGHT,
+} from "@/constants/SIZES";
 import { StatusBar } from "expo-status-bar";
-import { useRef } from "react";
 import {
   Dimensions,
   ScrollView,
@@ -17,113 +14,50 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import Animated, {
+  useAnimatedRef,
+  useDerivedValue,
+  useScrollViewOffset,
+} from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-const { height } = Dimensions.get("window");
+const { width } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#364775",
     flex: 1,
+    backgroundColor: "#364775",
+    paddingHorizontal: 10,
+    gap: GAP,
   },
   header: {
-    flexDirection: "row",
-    width: "100%",
-    height: 40,
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 40,
-  },
-  month: {
-    fontSize: 24,
-    color: myWhite,
-  },
-  daysScroll: {},
-  title: {
-    fontSize: 30,
-    color: "#6379ff",
-  },
-  textBox: {
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#5164ba",
-  },
-  text: {
-    fontSize: 20,
-    color: myWhite,
-    fontFamily: "Nunito_500Medium",
+    backgroundColor: "#6379ff",
+    height: HEADER_HEIGHT,
+    borderRadius: BORDER_RADIUS,
   },
 });
 
-const months = daysAndMonthsAndYears[0].months.map((data, index) => {
-  return data.name;
+const MONTHS_ARRAY = new Array(12).fill(null).map((_, i) => {
+  return i + 1;
 });
 
 export default function Index() {
-  const activeDayModalRef = useRef<BottomSheetModal>(null);
-
-  const handlePresentActiveDayModalPress = () =>
-    activeDayModalRef.current?.present();
-
+  const animatedRef = useAnimatedRef<Animated.ScrollView>();
+  const scrollOffset = useScrollViewOffset(animatedRef);
   return (
     <>
       <StatusBar style="light" />
       <SafeAreaView style={styles.container}>
-        <ActiveDayModal ref={activeDayModalRef} />
-        <View style={styles.header}>
-          <TouchableOpacity>
-            <FontAwesome6 name="grip-lines" size={24} color={myWhite} />
-          </TouchableOpacity>
-          <Text style={styles.text}>2024</Text>
-          <View style={{ width: 100 }}></View>
-          <TouchableOpacity onPress={handlePresentActiveDayModalPress}>
-            <FontAwesome6 name="add" size={24} color={myWhite} />
-          </TouchableOpacity>
-        </View>
-        <ScrollView contentContainerStyle={{ alignItems: "center", gap: 40 }}>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-          <View style={{ minHeight: monthBoxHeight }}>
-            <FullMonth title="Январь" />
-          </View>
-        </ScrollView>
+        <View style={styles.header}></View>
+        <Animated.ScrollView
+          ref={animatedRef}
+          contentContainerStyle={{
+            height: MONTH_HEIGHT * MONTHS_ARRAY.length,
+          }}
+        >
+          {MONTHS_ARRAY.map((m, i) => {
+            return <Month key={i} index={i} scrollOffset={scrollOffset} />;
+          })}
+        </Animated.ScrollView>
       </SafeAreaView>
     </>
   );
