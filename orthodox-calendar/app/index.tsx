@@ -49,9 +49,14 @@ export default function Index() {
       <SafeAreaView style={styles.container}>
         <View style={styles.header}></View>
         <Animated.ScrollView
+          snapToInterval={MONTH_HEIGHT}
+          decelerationRate={"fast"}
+          disableIntervalMomentum
+          scrollEventThrottle={16}
           ref={animatedRef}
           contentContainerStyle={{
             height: MONTH_HEIGHT * MONTHS_ARRAY.length,
+            alignItems: "center",
           }}
         >
           {MONTHS_ARRAY.map((m, i) => {
@@ -62,44 +67,3 @@ export default function Index() {
     </>
   );
 }
-
-/*
-<ScrollView
-          snapToInterval={monthForScrollWidth}
-          decelerationRate={"fast"}
-          disableIntervalMomentum
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={16}
-          horizontal
-          contentContainerStyle={{
-            alignItems: "center",
-            transform: [{ translateX: monthForScrollWidth / 3 }],
-          }}
-        >
-          {months.map((m, i) => {
-            return <MonthForScroll key={i} name={m} index={i} />;
-          })}
-        </ScrollView>
-        <ScrollView
-          decelerationRate={"fast"}
-          disableIntervalMomentum
-          showsHorizontalScrollIndicator={false}
-          scrollEventThrottle={16}
-          horizontal
-          contentContainerStyle={{
-            alignItems: "center",
-            transform: [{ translateX: monthForScrollWidth / 2 }],
-          }}
-        >
-          {daysAndMonthsAndYears[0].months[0].days.map((data, i) => {
-            return (
-              <DayForScroll
-                key={i}
-                name={data.dayName}
-                num={data.dayNum}
-                index={i}
-              />
-            );
-          })}
-        </ScrollView>
-*/

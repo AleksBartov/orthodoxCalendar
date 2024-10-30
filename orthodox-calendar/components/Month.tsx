@@ -1,36 +1,30 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
 import React from "react";
-import { BORDER_RADIUS, MONTH_HEIGHT } from "@/constants/SIZES";
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from "react-native-reanimated";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
+import { BORDER_RADIUS, MONTH_HEIGHT, MONTH_WIDTH } from "@/constants/SIZES";
+import Animated, { useAnimatedStyle } from "react-native-reanimated";
+import Day from "./Day";
+
+const DAYS_ARRAY = new Array(31).fill(null).map((_, i) => {
+  return i + 1;
+});
 
 const Month = ({ index, scrollOffset }) => {
-  const pressed = useSharedValue(false);
-
-  const tap = Gesture.Tap().onEnd(() => {
-    pressed.value = true;
-  });
-
   const rStyles = useAnimatedStyle(() => {
     return {
       transform: [
         {
-          translateY: pressed.value
-            ? withTiming(0 + scrollOffset.value)
-            : index * MONTH_HEIGHT,
+          translateY: index * MONTH_HEIGHT,
         },
       ],
     };
   }, []);
 
   return (
-    <GestureDetector gesture={tap}>
-      <Animated.View style={[styles.monthBox, rStyles]}></Animated.View>
-    </GestureDetector>
+    <Animated.View style={[styles.monthBox, rStyles]}>
+      {DAYS_ARRAY.map((d, i) => {
+        return <Day key={i} index={i} day={d} scrollOffset={scrollOffset} />;
+      })}
+    </Animated.View>
   );
 };
 
@@ -38,11 +32,8 @@ export default Month;
 
 const styles = StyleSheet.create({
   monthBox: {
-    backgroundColor: "#6379ff",
     height: MONTH_HEIGHT,
-    borderRadius: BORDER_RADIUS,
     position: "absolute",
-    width: "100%",
-    borderWidth: 1,
+    width: MONTH_WIDTH,
   },
 });
