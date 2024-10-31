@@ -14,3 +14,5 @@ export const DAY_WIDTH = MONTH_WIDTH / 7;
 
 export const BORDER_RADIUS = 20;
 export const GAP = 10;
+
+export const DURATION = 500;

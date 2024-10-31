@@ -1,6 +1,13 @@
-import { Dimensions, StyleSheet, Text, View } from "react-native";
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import Animated, {
+  Easing,
   useAnimatedStyle,
   withTiming,
 } from "react-native-reanimated";
@@ -9,9 +16,11 @@ import { myWhite } from "@/constants/Colors";
 import {
   BORDER_RADIUS,
   DAY_HEIGHT,
+  DURATION,
   GAP,
   HEADER_HEIGHT,
 } from "@/constants/SIZES";
+import { Ionicons } from "@expo/vector-icons";
 
 const { height: wHeight, width: wWidth } = Dimensions.get("window");
 
@@ -26,7 +35,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const BottomSheetDetails = ({ detailsActive }) => {
+const BottomSheetDetails = ({ detailsActive, haveToHide }) => {
   const gesture = Gesture.Pan();
 
   const rStyles = useAnimatedStyle(() => {
@@ -34,8 +43,14 @@ const BottomSheetDetails = ({ detailsActive }) => {
       transform: [
         {
           translateY: detailsActive.value
-            ? withTiming(GAP * 3 + HEADER_HEIGHT + DAY_HEIGHT * 2)
-            : withTiming(wHeight),
+            ? withTiming(GAP * 3 + HEADER_HEIGHT + DAY_HEIGHT * 2, {
+                duration: DURATION,
+                easing: Easing.inOut(Easing.ease),
+              })
+            : withTiming(wHeight, {
+                duration: DURATION,
+                easing: Easing.inOut(Easing.ease),
+              }),
         },
       ],
     };
@@ -54,7 +69,14 @@ const BottomSheetDetails = ({ detailsActive }) => {
             justifyContent: "center",
           }}
         >
-          <Text>TEST</Text>
+          <TouchableOpacity
+            onPress={() => {
+              detailsActive.value = false;
+              haveToHide.value = false;
+            }}
+          >
+            <Ionicons name="close" size={30} color={"#364775"} />
+          </TouchableOpacity>
         </View>
       </Animated.View>
     </GestureDetector>

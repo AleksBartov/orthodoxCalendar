@@ -11,6 +11,7 @@ import { StatusBar } from "expo-status-bar";
 import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, {
   useAnimatedRef,
+  useAnimatedStyle,
   useScrollViewOffset,
   useSharedValue,
 } from "react-native-reanimated";
@@ -37,8 +38,14 @@ const MONTHS_ARRAY = new Array(12).fill(null).map((_, i) => {
 
 export default function Index() {
   const detailsActive = useSharedValue(false);
+  const haveToHide = useSharedValue(false);
   const animatedRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(animatedRef);
+  const rStyle = useAnimatedStyle(() => {
+    return {
+      height: MONTH_HEIGHT * MONTHS_ARRAY.length,
+    };
+  }, []);
   return (
     <>
       <StatusBar style="light" />
@@ -51,8 +58,8 @@ export default function Index() {
           scrollEventThrottle={16}
           ref={animatedRef}
           contentContainerStyle={{
-            height: MONTH_HEIGHT * MONTHS_ARRAY.length,
             alignItems: "center",
+            height: MONTH_HEIGHT * MONTHS_ARRAY.length,
           }}
         >
           {MONTHS_ARRAY.map((m, i) => {
@@ -62,11 +69,15 @@ export default function Index() {
                 index={i}
                 scrollOffset={scrollOffset}
                 detailsActive={detailsActive}
+                haveToHide={haveToHide}
               />
             );
           })}
         </Animated.ScrollView>
-        <BottomSheetDetails detailsActive={detailsActive} />
+        <BottomSheetDetails
+          detailsActive={detailsActive}
+          haveToHide={haveToHide}
+        />
       </SafeAreaView>
     </>
   );

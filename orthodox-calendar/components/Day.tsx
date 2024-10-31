@@ -1,12 +1,20 @@
 import { StyleSheet, Text } from "react-native";
 import React from "react";
 import Animated, {
+  Easing,
+  useAnimatedReaction,
   useAnimatedStyle,
+  useDerivedValue,
   useSharedValue,
   withTiming,
 } from "react-native-reanimated";
 import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { DAY_HEIGHT, DAY_WIDTH, MONTH_HEIGHT } from "@/constants/SIZES";
+import {
+  DAY_HEIGHT,
+  DAY_WIDTH,
+  DURATION,
+  MONTH_HEIGHT,
+} from "@/constants/SIZES";
 import { myWhite } from "@/constants/Colors";
 
 const styles = StyleSheet.create({
@@ -24,11 +32,27 @@ const styles = StyleSheet.create({
   },
 });
 
-const Day = ({ index, day, scrollOffset, monthIndex, detailsActive }) => {
+const Day = ({
+  index,
+  day,
+  scrollOffset,
+  monthIndex,
+  detailsActive,
+  haveToHide,
+}) => {
   const pressed = useSharedValue(false);
+  useAnimatedReaction(
+    () => detailsActive.value,
+    (v) => {
+      if (!v) {
+        pressed.value = false;
+      }
+    }
+  );
 
   const tap = Gesture.Tap().onEnd(() => {
     pressed.value = true;
+    haveToHide.value = true;
     detailsActive.value = true;
   });
 
@@ -45,19 +69,46 @@ const Day = ({ index, day, scrollOffset, monthIndex, detailsActive }) => {
     return {
       transform: [
         {
-          translateX: pressed.value ? withTiming(0) : getPosition(index).x,
+          translateX:
+            pressed.value && haveToHide.value && detailsActive.value
+              ? withTiming(0, {
+                  duration: DURATION,
+                  easing: Easing.inOut(Easing.ease),
+                })
+              : withTiming(getPosition(index).x, {
+                  duration: DURATION,
+                  easing: Easing.inOut(Easing.ease),
+                }),
         },
         {
-          translateY: pressed.value
-            ? withTiming(-(monthIndex * MONTH_HEIGHT) + scrollOffset.value)
-            : getPosition(index).y,
+          translateY:
+            pressed.value && haveToHide.value && detailsActive.value
+              ? withTiming(-(monthIndex * MONTH_HEIGHT) + scrollOffset.value, {
+                  duration: DURATION,
+                  easing: Easing.inOut(Easing.ease),
+                })
+              : withTiming(getPosition(index).y, {
+                  duration: DURATION,
+                  easing: Easing.inOut(Easing.ease),
+                }),
         },
         {
-          scale: pressed.value ? withTiming(1.2) : 0.6,
+          scale:
+            pressed.value && haveToHide.value && detailsActive.value
+              ? withTiming(1.2, {
+                  duration: DURATION,
+                  easing: Easing.inOut(Easing.ease),
+                })
+              : withTiming(0.6, {
+                  duration: DURATION,
+                  easing: Easing.inOut(Easing.ease),
+                }),
         },
       ],
+      opacity: haveToHide.value && !pressed.value ? 0 : 1,
     };
   }, []);
+
   return (
     <GestureDetector gesture={tap}>
       <Animated.View style={[styles.day, rStyles]}>
