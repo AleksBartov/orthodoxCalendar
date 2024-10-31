@@ -24,11 +24,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const Day = ({ index, day, scrollOffset, monthIndex }) => {
+const Day = ({ index, day, scrollOffset, monthIndex, detailsActive }) => {
   const pressed = useSharedValue(false);
 
   const tap = Gesture.Tap().onEnd(() => {
     pressed.value = true;
+    detailsActive.value = true;
   });
 
   const rStyles = useAnimatedStyle(() => {

@@ -1,6 +1,8 @@
+import BottomSheetDetails from "@/components/BottomSheetDetails";
 import Month from "@/components/Month";
 import {
   BORDER_RADIUS,
+  DAY_HEIGHT,
   GAP,
   HEADER_HEIGHT,
   MONTH_HEIGHT,
@@ -10,6 +12,7 @@ import { Dimensions, StyleSheet, View } from "react-native";
 import Animated, {
   useAnimatedRef,
   useScrollViewOffset,
+  useSharedValue,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 const { width } = Dimensions.get("window");
@@ -33,6 +36,7 @@ const MONTHS_ARRAY = new Array(12).fill(null).map((_, i) => {
 });
 
 export default function Index() {
+  const detailsActive = useSharedValue(false);
   const animatedRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(animatedRef);
   return (
@@ -52,9 +56,17 @@ export default function Index() {
           }}
         >
           {MONTHS_ARRAY.map((m, i) => {
-            return <Month key={i} index={i} scrollOffset={scrollOffset} />;
+            return (
+              <Month
+                key={i}
+                index={i}
+                scrollOffset={scrollOffset}
+                detailsActive={detailsActive}
+              />
+            );
           })}
         </Animated.ScrollView>
+        <BottomSheetDetails detailsActive={detailsActive} />
       </SafeAreaView>
     </>
   );

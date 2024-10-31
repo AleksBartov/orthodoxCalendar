@@ -8,7 +8,7 @@ const DAYS_ARRAY = new Array(31).fill(null).map((_, i) => {
   return i + 1;
 });
 
-const Month = ({ index: monthIndex, scrollOffset }) => {
+const Month = ({ index: monthIndex, scrollOffset, detailsActive }) => {
   const rStyles = useAnimatedStyle(() => {
     return {
       transform: [
@@ -32,6 +32,7 @@ const Month = ({ index: monthIndex, scrollOffset }) => {
             monthIndex={monthIndex}
             day={d}
             scrollOffset={scrollOffset}
+            detailsActive={detailsActive}
           />
         );
       })}
